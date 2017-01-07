@@ -3,6 +3,7 @@
 
 import requests
 import json
+from datetime import datetime
 from os import path
 
 headers = {
@@ -18,7 +19,17 @@ if not path.isfile("secret.py"):
 else:
 	import secret
 
-	f = open('datafile.txt','w')
+	last_date = []
+	data = open('datafile.txt','r')
+	for datum in data:
+		last_date.append(datum.rstrip())
+	data.close()
+	print last_date
+	current_date = list(datetime.now().timetuple()[0:6])
+	print current_date
+	data = open('datafile.txt', 'w')
+	for i in range(0,6):
+		data.write(str(current_date[i]) + "\n")
 	url = "https://getpocket.com/v3/get"
 	info = {"consumer_key": secret.consumer_key, "access_token" : secret.access_token}
 	res = requests.post(url, data=info)
