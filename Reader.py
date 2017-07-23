@@ -2,7 +2,6 @@
 # For methods relating to rss shenanigans
 # https://wiki.python.org/moin/RssLibraries
 import datetime
-
 import feedparser
 
 # Add favorite rss feeds
@@ -26,20 +25,25 @@ def AddFavorites():
 	print "Now following " + str(count) + " feeds"
 	return 0
 
-#TODO: Delete functionality with regex?
+# TODO: Delete functionality with regex?
 
-def UpdateArticles():
+# TODO: Only add articles published after a certain date
+# Checks rss feeds of favorite feeds and attempts to add all of them
+# to pocket. 
+# @param poc: Pocket object. 
+def UpdateArticles(poc):
 	urls = []
 	f = open("feeds.txt", "r")
+	count = 0
 	for line in f:
 		url = line.rstrip()
 		print "Pulling down " + url + "..."
-		print ""
 		articles = feedparser.parse(url)
 		for art in articles["items"]:
-			print art["title"]
-			print art["link"]
-			print ""
+			archived = poc.get_archived()
+			poc.add(art["title"], art["link"])
+			count += 1
+	print "Added " + str(count) + " articles"
 	return 0
 
 
@@ -50,4 +54,12 @@ def UpdateArticles():
 
 
 if __name__ == '__main__':
-	UpdateArticles()
+	from Pocket import Pocket
+	import secret
+	poc = Pocket(secret.consumer_key, secret.access_token)
+	UpdateArticles(poc)
+
+
+
+
+
