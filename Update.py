@@ -4,6 +4,12 @@ from datetime import datetime
 
 import secret
 
+# =============================================================================
+# 
+# TODO:: CREATE POCKET OBJECT AS WRAPPER FOR ALL API CALLS
+# 
+# =============================================================================
+
 # Given two dates, generates a message to summarize the change in number of articles 
 # since last update
 def CalculateChange(oldDate, newDate):
@@ -32,6 +38,7 @@ def CalculateChange(oldDate, newDate):
 			else:
 				return prefix + str(newDate[i] - oldDate[i]) + " " + date_hash[i] + "s"
 
+# Summary of how much you've read recently
 def ReadingSummary():
 	# Get the last date as an array of ints
 	last_date = []
@@ -67,4 +74,8 @@ def ReadingSummary():
 	print "You have " + str(counter) + " saved articles"
 	change_message = CalculateChange(last_date, current_date)
 	print change_message
+	return 0
+
+# Cleans up old articles that are just collecting dust
+def CleanUp():
 	return 0
