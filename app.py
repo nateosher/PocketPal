@@ -14,9 +14,7 @@ from Pocket import Pocket
 
 if not path.isfile("secret.py"):
 	from PocketInit import PocketInitialize
-	print "No account detected."
-	key = raw_input("Please enter your product key: ")
-	PocketInitialize(key)
+	PocketInitialize()
 else:
 	poc = Pocket(secret.consumer_key, secret.access_token)
 	while True:

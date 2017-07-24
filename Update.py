@@ -50,7 +50,7 @@ def ReadingSummary(poc):
 		data.write(str(current_date[i]) + "\n")
 	# Make request to see how many articles user has
 	results = poc.get_saved()
-
+	# Get number of saved articles
 	counter = len(list(results.keys()))
 
 	data.write(str(counter))

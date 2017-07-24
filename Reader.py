@@ -8,21 +8,29 @@ import feedparser
 def AddFavorites():
 	# TODO: Check for a feed before adding it
 	print "Enter urls to RSS feeds you want to follow"
-	urls = []
+	f = open("feeds.txt", "r")
+	oldurls = []
+	for line in f:
+		oldurls.append(line.rstrip())
+	f.close()
+	newurls = []
 	while True:
 		newurl = raw_input()
 		if newurl == "":
 			break
-		urls.append(newurl)
+		elif newurl in oldurls:
+			print "You are already tracking this feed"
+		else:
+			newurls.append(newurl)
 	f = open("feeds.txt", 'a')
-	for url in urls:
+	for url in newurls:
 		f.write(url + "\n")
 	f.close()
 	count = 0
 	f = open("feeds.txt", "r")
 	for line in f:
 		count += 1
-	print "Now following " + str(count) + " feeds"
+	print "Now following " + str(count) + " feeds (" + str(len(newurls)) + " new)"
 	return 0
 
 # TODO: Delete functionality with regex?
@@ -53,7 +61,7 @@ def UpdateArticles(poc):
 def ViewFavorites():
 	f = open("feeds.txt", "r")
 	for line in f:
-		print line
+		print line.rstrip()
 	return 0
 
 
