@@ -4,12 +4,6 @@ from datetime import datetime
 
 import secret
 
-# =============================================================================
-# 
-# TODO:: CREATE POCKET OBJECT AS WRAPPER FOR ALL API CALLS
-# 
-# =============================================================================
-
 # Given two dates, generates a message to summarize the change in number of articles 
 # since last update
 def CalculateChange(oldDate, newDate):
@@ -39,7 +33,7 @@ def CalculateChange(oldDate, newDate):
 				return prefix + str(newDate[i] - oldDate[i]) + " " + date_hash[i] + "s"
 
 # Summary of how much you've read recently
-def ReadingSummary():
+def ReadingSummary(poc):
 	# Get the last date as an array of ints
 	last_date = []
 	data = open('datafile.txt','r')
@@ -55,21 +49,13 @@ def ReadingSummary():
 	for i in range(6):
 		data.write(str(current_date[i]) + "\n")
 	# Make request to see how many articles user has
-	url = "https://getpocket.com/v3/get"
-	info = {"consumer_key": secret.consumer_key, "access_token" : secret.access_token}
-	res = requests.post(url, data=info)
-	results = json.loads(str(res.text))
+	results = poc.get_saved()
 
-	counter = 0
-
-	for key in results['list']:
-		# print datetime.fromtimestamp(int(results['list'][key]['time_added']) / 1.0)
-		counter += 1
+	counter = len(list(results.keys()))
 
 	data.write(str(counter))
 	data.close()
 	current_date.append(counter)
-	# print current_date
 
 	print "You have " + str(counter) + " saved articles"
 	change_message = CalculateChange(last_date, current_date)

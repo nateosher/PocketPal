@@ -32,7 +32,7 @@ vf or view    -> List favorite sites
 c or clean    -> Remove articles added before a certain date, or a certain amount of time ago (IN PROGRESS)
 			"""
 		elif next == "s" or next == "summary":
-			ReadingSummary()
+			ReadingSummary(poc)
 		elif next == "f" or next == "favorites":
 			AddFavorites()
 		elif next == "sc" or next == "scrape":
