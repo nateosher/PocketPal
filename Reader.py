@@ -35,18 +35,26 @@ def UpdateArticles(poc):
 	urls = []
 	f = open("feeds.txt", "r")
 	count = 0
+	archived = poc.get_archived()
+	read_titles = [archived[key]["resolved_title"] for key in list(archived.keys())]
+	startTotal = len(list(poc.get_saved().keys()))
 	for line in f:
 		url = line.rstrip()
 		print "Pulling down " + url + "..."
 		articles = feedparser.parse(url)
 		for art in articles["items"]:
-			archived = poc.get_archived()
-			poc.add(art["title"], art["link"])
-			count += 1
-	print "Added " + str(count) + " articles"
+			if art["title"] not in read_titles:
+				poc.add(art["title"], art["link"])
+	endTotal = len(list(poc.get_saved().keys()))
+
+	print "Added " + str(endTotal - startTotal) + " new articles"
 	return 0
 
-
+def ViewFavorites():
+	f = open("feeds.txt", "r")
+	for line in f:
+		print line
+	return 0
 
 
 

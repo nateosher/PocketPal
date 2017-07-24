@@ -1,8 +1,12 @@
 import requests
 import json
 
-def PocketInitialize(key,headers):
+def PocketInitialize(key):
 	# Sets up POST request to get verification token
+	headers = {
+    	'Content-Type': 'application/json; charset=UTF-8',
+    	'X-Accept': 'application/json',
+	}
 	authorize_url = "https://getpocket.com/v3/oauth/request"
 	key = str(key)
 	authorize_data = {

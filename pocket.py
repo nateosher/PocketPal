@@ -20,7 +20,6 @@ class Pocket:
 	def get_archived(self):
 		arch_info = {"state":"archive"}
 		arch_info.update(self._info)
-		print arch_info
 		res = post(self._baseUrl + "get", data = arch_info)
 		res = loads(str(res.text))
 		return res["list"]
