@@ -8,13 +8,16 @@ import secret
 # since last update
 def CalculateChange(oldDate, newDate):
 	sign = "-" if oldDate[6] > newDate[6] else "+"
-	dif = str(abs(oldDate[6] - newDate[6]))
-	if dif == "0":
+	savedDif = str(abs(oldDate[6] - newDate[6]))
+	readDif = str(abs(oldDate[7] - newDate[7]))
+	if savedDif == "0":
 		prefix = "No change in number of articles in last "
-	elif dif == "1":
-		prefix = sign + dif + " article in last "
+	elif savedDif == "1":
+		prefix = sign + savedDif + " article saved and " + readDif + " read"
 	else:
-		prefix = sign + dif + " articles in last "
+		prefix = sign + savedDif + " articles saved and " + readDif + " read"
+
+	prefix = prefix + " in last "
 
 	date_hash = {
 		0 : "year",
@@ -50,16 +53,22 @@ def ReadingSummary(poc):
 		data.write(str(current_date[i]) + "\n")
 	# Make request to see how many articles user has
 	results = poc.get_saved()
+	readArts = poc.get_archived()
 	# Get number of saved articles
 	counter = len(list(results.keys()))
+	numRead = len(list(readArts.keys()))
 
-	data.write(str(counter))
+	data.write(str(counter)+"\n")
+	data.write(str(numRead))
 	data.close()
 	current_date.append(counter)
+	current_date.append(numRead)
 
 	print "You have " + str(counter) + " saved articles"
+	print "You have read " + str(numRead) + " articles"
 	change_message = CalculateChange(last_date, current_date)
 	print change_message
+
 	return 0
 
 # Cleans up old articles that are just collecting dust

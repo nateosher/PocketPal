@@ -6,7 +6,6 @@ import feedparser
 
 # Add favorite rss feeds
 def AddFavorites():
-	# TODO: Check for a feed before adding it
 	print "Enter urls to RSS feeds you want to follow"
 	f = open("feeds.txt", "r")
 	oldurls = []
