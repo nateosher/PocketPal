@@ -72,5 +72,52 @@ def ReadingSummary(poc):
 	return 0
 
 # Cleans up old articles that are just collecting dust
-def CleanUp():
+def CleanUp(poc):
+	# convert cutoff date to actual date
+	while True:
+		cutoffDate = raw_input("Please enter cutoff date for removal (mm/dd/yyyy): ")
+		if cutoffDate == "":
+			print "Action canceled"
+			return 0
+		try:
+			cutoffDate = datetime.strptime(cutoffDate, "%m/%d/%Y")
+			break
+		except ValueError:
+			print "Format error- be sure to pad month and day with 0's if necessary"
+			print "Enter empty string to cancel action"
+	print "Retrieving saved articles..."
+	saved = poc.get_saved()
+	count = 0
+	for key in saved.keys():
+		# TODO: Make deletion more robust (check status, etc.)
+		curTime = datetime.fromtimestamp(float(saved[key]['time_added']))
+		curID = int(saved[key]['item_id'])
+		if curTime < cutoffDate:
+			count += 1
+			print 'Found article: "' + saved[key]['resolved_title'] + '"'
+			while True:
+				resp = raw_input("Would you like to delete, archive, or neither? (d/a/n): ")
+				if resp == "d":
+					poc.delete(curID)
+					print "Article deleted"
+					break
+				elif resp == "a":
+					poc.archive(curID)
+					print "Article archived"
+					break
+				elif resp == "n" or resp == "":
+					print "Article will remain in saved"
+					break
+				else:
+					print "Command not recognized"
 	return 0
+
+if __name__ == '__main__':
+	from Pocket import Pocket
+	import secret
+	poc = Pocket(secret.consumer_key, secret.access_token)
+	CleanUp(poc)
+
+
+
+

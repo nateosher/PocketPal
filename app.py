@@ -8,7 +8,7 @@ from os import path
 
 # Custom methods
 import secret
-from Update import ReadingSummary
+from Update import ReadingSummary, CleanUp
 from Reader import AddFavorites, UpdateArticles, ViewFavorites
 from Pocket import Pocket
 
@@ -39,6 +39,8 @@ g or guess     -> Scan headlines from news api and find ones that may potentiall
 			UpdateArticles(poc)
 		elif next == "vf" or next == "view":
 			ViewFavorites()
+		elif next == "c" or next == "clean":
+			CleanUp(poc)
 		else:
 			print "Unknown or unsupported command"
 
