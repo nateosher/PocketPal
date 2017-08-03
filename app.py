@@ -11,10 +11,12 @@ import secret
 from Update import ReadingSummary, CleanUp
 from Reader import AddFavorites, UpdateArticles, ViewFavorites
 from Pocket import Pocket
+from Stats import ReadingStats
 
 # Set running directory to current directory of the script
 CURRENT_DIRECTORY = os.path.dirname(__file__)
-os.chdir(CURRENT_DIRECTORY)
+if CURRENT_DIRECTORY:
+	os.chdir(CURRENT_DIRECTORY)
 
 # Check to see if everything is all set up
 if not os.path.isfile("secret.py"):
@@ -46,6 +48,8 @@ g or guess     -> Scan headlines from news api and find ones that may potentiall
 			ViewFavorites()
 		elif next == "c" or next == "clean":
 			CleanUp(poc)
+		elif next == "st" or next == "stats":
+			ReadingStats(poc)
 		else:
 			print "Unknown or unsupported command"
 
