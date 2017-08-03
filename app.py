@@ -4,7 +4,7 @@
 # Core packages
 import requests
 import json
-from os import path
+import os
 
 # Custom methods
 import secret
@@ -12,7 +12,12 @@ from Update import ReadingSummary, CleanUp
 from Reader import AddFavorites, UpdateArticles, ViewFavorites
 from Pocket import Pocket
 
-if not path.isfile("secret.py"):
+# Set running directory to current directory of the script
+CURRENT_DIRECTORY = os.path.dirname(__file__)
+os.chdir(CURRENT_DIRECTORY)
+
+# Check to see if everything is all set up
+if not os.path.isfile("secret.py"):
 	from PocketInit import PocketInitialize
 	PocketInitialize()
 else:
@@ -27,7 +32,7 @@ s or summary   -> Gives summary of your recent reading/saving
 sc or scrape   -> Check to see if your favorite sites have put out any new Content
 f or favorites -> Update your "favorite" sites
 vf or view     -> List favorite sites
-c or clean     -> Remove articles added before a certain date, or a certain amount of time ago (IN PROGRESS)
+c or clean     -> Remove articles added before a certain date, or a certain amount of time ago
 st or stats    -> Generate simple statistical summary of reading habits (IN PROGRESS)
 g or guess     -> Scan headlines from news api and find ones that may potentially be of interest (IN PROGRESS)
 			"""
