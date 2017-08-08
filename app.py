@@ -35,7 +35,8 @@ sc or scrape   -> Check to see if your favorite sites have put out any new Conte
 f or favorites -> Update your "favorite" sites
 vf or view     -> List favorite sites
 c or clean     -> Remove articles added before a certain date, or a certain amount of time ago
-st or stats    -> Generate simple statistical summary of reading habits (IN PROGRESS)
+st or stats    -> Generate simple statistical summary of reading habits
+j or journal   -> Give "reading journal" of past week (IN PROGRESS)
 g or guess     -> Scan headlines from news api and find ones that may potentially be of interest (IN PROGRESS)
 			"""
 		elif next == "s" or next == "summary":
