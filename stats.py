@@ -1,7 +1,6 @@
 # stats.py 
 # for storing methods relating to collecting stats on reading habits
 
-#### TODO: REFACTOR TO INCLUDE UPDATE.PY FUNCTIONALITY
 def ReadingStats(poc):
 	print ""
 	sites = {}

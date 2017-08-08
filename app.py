@@ -7,7 +7,7 @@ import json
 import os
 
 # Custom methods
-import secret
+import data.secret as secret
 from Update import ReadingSummary, CleanUp
 from Reader import AddFavorites, UpdateArticles, ViewFavorites
 from Pocket import Pocket
@@ -19,7 +19,7 @@ if CURRENT_DIRECTORY:
 	os.chdir(CURRENT_DIRECTORY)
 
 # Check to see if everything is all set up
-if not os.path.isfile("secret.py"):
+if not os.path.isfile("data/secret.py"):
 	from PocketInit import PocketInitialize
 	PocketInitialize()
 else:

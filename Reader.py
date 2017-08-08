@@ -7,7 +7,7 @@ import feedparser
 # Add favorite rss feeds
 def AddFavorites():
 	print "Enter urls to RSS feeds you want to follow"
-	f = open("feeds.txt", "r")
+	f = open("data/feeds.txt", "r")
 	oldurls = []
 	for line in f:
 		oldurls.append(line.rstrip())
@@ -21,12 +21,12 @@ def AddFavorites():
 			print "You are already tracking this feed"
 		else:
 			newurls.append(newurl)
-	f = open("feeds.txt", 'a')
+	f = open("data/feeds.txt", 'a')
 	for url in newurls:
 		f.write(url + "\n")
 	f.close()
 	count = 0
-	f = open("feeds.txt", "r")
+	f = open("data/feeds.txt", "r")
 	for line in f:
 		count += 1
 	print "Now following " + str(count) + " feeds (" + str(len(newurls)) + " new)"
@@ -40,7 +40,7 @@ def AddFavorites():
 # @param poc: Pocket object. 
 def UpdateArticles(poc):
 	urls = []
-	f = open("feeds.txt", "r")
+	f = open("data/feeds.txt", "r")
 	count = 0
 	archived = poc.get_archived()
 	saved = poc.get_saved()
@@ -61,7 +61,7 @@ def UpdateArticles(poc):
 	return 0
 
 def ViewFavorites():
-	f = open("feeds.txt", "r")
+	f = open("data/feeds.txt", "r")
 	for line in f:
 		print line.rstrip()
 	return 0

@@ -1,3 +1,4 @@
 *.pyc
 *.txt
 secret.py
+data/

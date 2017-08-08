@@ -44,7 +44,7 @@ def PocketInitialize():
 	token_res = json.loads(str(token_res.text))
 	access_token = token_res["access_token"]
 
-	f = open('secret.py', 'w')
+	f = open('data/secret.py', 'w')
 	to_write = 'consumer_key = "%s" \naccess_token = "%s"' % (key, access_token)
 	f.write(to_write)
 	f.close()

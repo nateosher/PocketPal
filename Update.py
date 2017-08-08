@@ -39,7 +39,7 @@ def CalculateChange(oldDate, newDate):
 def ReadingSummary(poc):
 	# Get the last date as an array of ints
 	last_date = []
-	data = open('datafile.txt','r')
+	data = open('data/datafile.txt','r')
 	for datum in data:
 		last_date.append(int(datum.rstrip()))
 	data.close()
@@ -48,7 +48,7 @@ def ReadingSummary(poc):
 	current_date = list(datetime.now().timetuple()[0:6])
 
 	# Update last date
-	data = open('datafile.txt', 'w')
+	data = open('data/datafile.txt', 'w')
 	for i in range(6):
 		data.write(str(current_date[i]) + "\n")
 	# Make request to see how many articles user has
@@ -110,6 +110,8 @@ def CleanUp(poc):
 					break
 				else:
 					print "Command not recognized"
+	if count == 0:
+		print "No articles added before this date"
 	return 0
 
 if __name__ == '__main__':
