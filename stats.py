@@ -2,7 +2,6 @@
 # for storing methods relating to collecting stats on reading habits
 
 def ReadingStats(poc):
-	print ""
 	sites = {}
 	words = []
 	archived = poc.get_archived()
