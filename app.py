@@ -16,6 +16,7 @@ from Roll import RandomArticle
 from NewsAPI import Aggregator
 
 # TODO: Implement some form of cacheing for pocket object and NewsAPI object
+# TODO: Color
 
 # Set running directory to current directory of the script
 CURRENT_DIRECTORY = os.path.dirname(__file__)
