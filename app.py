@@ -17,6 +17,11 @@ from NewsAPI import Aggregator
 
 # TODO: Implement some form of cacheing for pocket object and NewsAPI object
 # TODO: Color
+# TODO: Reader.py - delete functionality
+# TODO: Reader.py - nickname sources
+# TODO: Reader.py - Only add articles published after a certain date
+# TODO: Aggregator initialize functionality
+# TODO: General - refactoring
 
 # Set running directory to current directory of the script
 CURRENT_DIRECTORY = os.path.dirname(__file__)
@@ -28,7 +33,6 @@ if not os.path.isfile("data/secret.py"):
 	from PocketInit import PocketInitialize
 	PocketInitialize()
 else:
-	# TODO: Aggregator initialize
 	poc = Pocket(secret.consumer_key, secret.access_token)
 	agg = Aggregator(secret.news_api_key)
 	while True:
