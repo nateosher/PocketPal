@@ -80,12 +80,14 @@ def RandomArticle(poc, agg):
 		"wirtschafts-woche" : "Wirtschafts Woche"
 	}
 	while True:
-		specify = raw_input("Would you like to specify a category? (y/n/c): ")
+		specify = raw_input(("Would you like to specify a category?"
+			" (y/n/c):\n>> "))
 		if specify == "y":
 			while True:
 				category = raw_input(("What category would you like?"
 					"\nOptions: business, entertainment, gaming, general,"
-					" music, politics, science-and-nature, sport, or technology: "))
+					" music, politics, science-and-nature, sport, "
+					"or technology:\n>> "))
 				if category in valid_categories:
 					break
 				else:
@@ -136,7 +138,8 @@ def RandomArticle(poc, agg):
 			print '\033[1m' + article_list[cur_article]["title"] + '\033[0m'
 			print "Excerpt: " + article_list[cur_article]["description"]
 			while True:
-				add = raw_input("Would you like to add to Pocket? (y/n/s/c): ")
+				add = raw_input(("Would you like to add to Pocket? "
+					"(y/n/s/c):\n>> "))
 				if add == "y":
 					poc.add(article_list[cur_article]["title"], 
 						article_list[cur_article]["url"])

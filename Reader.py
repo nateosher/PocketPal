@@ -14,7 +14,7 @@ def AddFavorites():
 	f.close()
 	newurls = []
 	while True:
-		newurl = raw_input()
+		newurl = raw_input(">> ")
 		if newurl == "":
 			break
 		elif newurl in oldurls:
@@ -31,7 +31,7 @@ def AddFavorites():
 		count += 1
 	print "Now following " + str(count) + " feeds (" + str(len(newurls)) + " new)"
 	return 0
-	
+
 # Checks rss feeds of favorite feeds and attempts to add all of them
 # to pocket. 
 # @param poc: Pocket object. 
@@ -88,7 +88,7 @@ def UpdateArticles(poc):
 def ViewFavorites():
 	f = open("data/feeds.txt", "r")
 	for line in f:
-		print line.rstrip()
+		print line.rstrip().split(">>>")[1]
 	return 0
 
 

@@ -4,7 +4,7 @@ import json
 def PocketInitialize():
 	# Sets up POST request to get verification token
 	print "No account detected."
-	key = raw_input("Please enter your product key: ")
+	key = raw_input("Please enter your product key:\n>> ")
 	headers = {
     	'Content-Type': 'application/json; charset=UTF-8',
     	'X-Accept': 'application/json',

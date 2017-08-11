@@ -36,7 +36,8 @@ else:
 	poc = Pocket(secret.consumer_key, secret.access_token)
 	agg = Aggregator(secret.news_api_key)
 	while True:
-		next = raw_input("What would you like to do next? (q for quit, o for options): ")
+		next = raw_input(("What would you like to do next? "
+			"(q for quit, o for options):\n>> "))
 		if next == "q" or next == "quit":
 			os.system('clear')
 			break

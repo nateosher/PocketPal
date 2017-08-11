@@ -75,7 +75,8 @@ def ReadingSummary(poc):
 def CleanUp(poc):
 	# convert cutoff date to actual date
 	while True:
-		cutoffDate = raw_input("Please enter cutoff date for removal (mm/dd/yyyy): ")
+		cutoffDate = raw_input(("Please enter cutoff date for "
+			"removal (mm/dd/yyyy):\n>> "))
 		if cutoffDate == "":
 			print "Action canceled"
 			return 0
@@ -96,7 +97,8 @@ def CleanUp(poc):
 			count += 1
 			print 'Found article: "' + saved[key]['resolved_title'] + '"'
 			while True:
-				resp = raw_input("Would you like to delete, archive, or neither? (d/a/n): ")
+				resp = raw_input(("Would you like to delete, archive, "
+					"or neither? (d/a/n):\n>> "))
 				if resp == "d":
 					poc.delete(curID)
 					print "Article deleted"
