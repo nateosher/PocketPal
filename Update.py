@@ -11,7 +11,7 @@ def CalculateChange(oldDate, newDate):
 	savedDif = str(abs(oldDate[6] - newDate[6]))
 	readDif = str(abs(oldDate[7] - newDate[7]))
 	if savedDif == "0":
-		prefix = "No change in number of articles in last "
+		prefix = "No change in number of articles"
 	elif savedDif == "1":
 		prefix = sign + savedDif + " article saved and " + readDif + " read"
 	else:

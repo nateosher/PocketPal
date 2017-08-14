@@ -6,24 +6,33 @@ import feedparser
 
 # Add favorite rss feeds
 def AddFavorites():
-	print "Enter urls to RSS feeds you want to follow"
+	print "Enter urls to RSS feeds you want to follow (q or enter to quit)"
 	f = open("data/feeds.txt", "r")
 	oldurls = []
 	for line in f:
-		oldurls.append(line.rstrip())
+		oldurls.append(line.rstrip().split(">>>")[0])
 	f.close()
 	newurls = []
+	newurlnames = []
 	while True:
 		newurl = raw_input(">> ")
-		if newurl == "":
+		if newurl == "q" or newurl == "":
 			break
 		elif newurl in oldurls:
 			print "You are already tracking this feed"
 		else:
 			newurls.append(newurl)
+			print "What would you like to nickname this feed?"
+			while True:
+				newname = raw_input(">> ")
+				if newname == "":
+					print "Please enter a nonempty nickname"
+				else:
+					newurlnames.append(newname)
+					break
 	f = open("data/feeds.txt", 'a')
-	for url in newurls:
-		f.write(url + "\n")
+	for i in range(0,len(newurls)):
+		f.write(newurls[i] + ">>>" + newurlnames[i] + "\n")
 	f.close()
 	count = 0
 	f = open("data/feeds.txt", "r")

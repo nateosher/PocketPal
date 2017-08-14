@@ -18,10 +18,10 @@ from NewsAPI import Aggregator
 # TODO: Implement some form of cacheing for pocket object and NewsAPI object
 # TODO: Color
 # TODO: Reader.py - delete functionality
-# TODO: Reader.py - nickname sources
 # TODO: Reader.py - Only add articles published after a certain date
 # TODO: Aggregator initialize functionality
 # TODO: General - refactoring
+# TODO: Handle errors (definitely in reader.py, probably others as well)
 
 # Set running directory to current directory of the script
 CURRENT_DIRECTORY = os.path.dirname(__file__)
