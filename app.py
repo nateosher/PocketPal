@@ -12,16 +12,8 @@ from Update import ReadingSummary, CleanUp
 from Reader import AddFavorites, UpdateArticles, ViewFavorites
 from Pocket import Pocket
 from Stats import ReadingStats
-from Roll import RandomArticle
+from Roll import RandomArticle, EnableAgg
 from NewsAPI import Aggregator
-
-# TODO: Implement some form of cacheing for pocket object and NewsAPI object
-# TODO: Color
-# TODO: Reader.py - delete functionality
-# TODO: Reader.py - Only add articles published after a certain date
-# TODO: Aggregator initialize functionality
-# TODO: General - refactoring
-# TODO: Handle errors (definitely in reader.py, probably others as well)
 
 # Set running directory to current directory of the script
 CURRENT_DIRECTORY = os.path.dirname(__file__)
@@ -29,12 +21,15 @@ if CURRENT_DIRECTORY:
 	os.chdir(CURRENT_DIRECTORY)
 
 # Check to see if everything is all set up
+if not os.path.isdir("data"):
+	os.mkdir("data")
 if not os.path.isfile("data/secret.py"):
 	from PocketInit import PocketInitialize
 	PocketInitialize()
 else:
 	poc = Pocket(secret.consumer_key, secret.access_token)
-	agg = Aggregator(secret.news_api_key)
+	if secret.news_api_key:
+		agg = Aggregator(secret.news_api_key)
 	while True:
 		next = raw_input(("What would you like to do next? "
 			"(q for quit, o for options):\n>> "))
@@ -74,7 +69,10 @@ g or guess     -> Scan headlines from news api and find ones that may potentiall
 			ReadingStats(poc)
 		elif next == "r" or next == "roll":
 			os.system('clear')
-			RandomArticle(poc, agg)
+			if secret.news_api_key == None:
+				EnableAgg()
+			else:
+				RandomArticle(poc, agg)
 		else:
 			print "Unknown or unsupported command"
 

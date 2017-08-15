@@ -158,6 +158,54 @@ def RandomArticle(poc, agg):
 			if len(used_arts) == len(article_list):
 				break
 
+# Enable NewsAPI connection
+def EnableAgg():
+	print ("Would you like to enable PocketPal to connect"
+		" to https://newsapi.org/? This will allow PocketPal to suggest"
+		" random articles from a broad range of sources. However,"
+		" you will have to register (for free!) for an api"
+		" key (y/n):")
+	while True:
+		enable = raw_input(">> ")
+		if enable == "n":
+			return 0
+		elif enable == "y":
+			print ("Great! Please visit https://newsapi.org/register to get"
+				" your api key")
+			print "When you have it, enter it here (q to cancel):"
+			while True:
+				api_key = raw_input(">> ")
+				if api_key == "q":
+					return 0
+				else:
+					print "Just one second please"
+					from NewsAPI import Aggregator
+					test_agg = Aggregator(api_key)
+					print "Connecting to server..."
+					sources = test_agg.get_sources()
+					print "Testing api key..."
+					source = randint(0,len(sources) - 1)
+					res = test_agg.get_arts(sources[source])
+					if res['status'] == 'ok' or res['code'] != 'apiKeyInvalid':
+						print "Saving key..."
+						sec_file = open('data/secret.py', 'r')
+						lines = sec_file.readlines()
+						sec_file.close()
+						sec_file = open('data/secret.py', 'w')
+						sec_file.write(lines[0])
+						sec_file.write(lines[1])
+						sec_file.write(('news_api_key = "%s"' % (api_key)))
+						sec_file.close()
+						print ('Done! Thanks for your patience. Please'
+							' restart to enable functionality.')
+						return 0
+					else:
+						print ("Error: invalid api key- please re-enter your"
+							" api key (q to cancel):")
+
+		else:
+			print "Didn't quite catch that"
+
 
 
 

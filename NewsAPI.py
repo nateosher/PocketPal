@@ -42,9 +42,10 @@ class Aggregator:
 
 if __name__ == '__main__':
 	from data import secret
-	agg = Aggregator(secret.news_api_key)
+	agg = Aggregator("66e7db5aff244cf18d4fe854f0d4bc3b")
 	# print agg.get_sources("technology")
-	arts = agg.get_arts("the-new-york-times", "top")
+	# arts = agg.get_arts("the-new-york-times", "top")
+	arts = agg.get_arts("the-new-york-times")
 	print arts
 	print arts["status"] == "error"
 
