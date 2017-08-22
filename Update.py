@@ -46,14 +46,22 @@ def ReadingSummary(poc):
 
 	# Get current date as list of ints
 	current_date = list(datetime.now().timetuple()[0:6])
+	# Make request to see how many articles user has
+	try:
+		results = poc.get_saved()
+	except:
+		print "\033[1mError\033[0m- check internet connection and try again"
+		return 0
+	try:
+		readArts = poc.get_archived()
+	except:
+		print "\033[1mError\033[0m- check internet connection and try again"
+		return 0
 
 	# Update last date
 	data = open('data/datafile.txt', 'w')
 	for i in range(6):
 		data.write(str(current_date[i]) + "\n")
-	# Make request to see how many articles user has
-	results = poc.get_saved()
-	readArts = poc.get_archived()
 	# Get number of saved articles
 	counter = len(list(results.keys()))
 	numRead = len(list(readArts.keys()))
@@ -87,7 +95,11 @@ def CleanUp(poc):
 			print "Format error- be sure to pad month and day with 0's if necessary"
 			print "Enter empty string to cancel action"
 	print "Retrieving saved articles..."
-	saved = poc.get_saved()
+	try:
+		saved = poc.get_saved()
+	except:
+		print "\033[1mError\033[0m- check internet connection and try again"
+		return 0
 	count = 0
 	for key in saved.keys():
 		# TODO: Make deletion more robust (check status, etc.)
@@ -100,13 +112,23 @@ def CleanUp(poc):
 				resp = raw_input(("Would you like to delete, archive, "
 					"or neither? (d/a/n):\n>> "))
 				if resp == "d":
-					poc.delete(curID)
-					print "Article deleted"
-					break
+					try:
+						poc.delete(curID)
+						print "Article deleted"
+						break
+					except:
+						print ("\033[1mError\033[0m- check internet "
+							"connection and try again")
+						return 0
 				elif resp == "a":
-					poc.archive(curID)
-					print "Article archived"
-					break
+					try:
+						poc.archive(curID)
+						print "Article archived"
+						break
+					except:
+						print ("\033[1mError\033[0m- check internet "
+							"connection and try again")
+						return 0
 				elif resp == "n" or resp == "":
 					print "Article will remain in saved"
 					break

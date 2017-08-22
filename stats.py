@@ -4,7 +4,11 @@
 def ReadingStats(poc):
 	sites = {}
 	words = []
-	archived = poc.get_archived()
+	try:
+		archived = poc.get_archived()
+	except:
+		print "\033[1mError\033[0m- check internet connection and try again"
+		return 0
 	nread = len(archived.keys())
 	maxWords = -1
 	maxKey = None

@@ -48,8 +48,16 @@ def UpdateArticles(poc):
 	urls = {}
 	f = open("data/feeds.txt", "r")
 	count = 0
-	archived = poc.get_archived()
-	saved = poc.get_saved()
+	try:
+		archived = poc.get_archived()
+	except:
+		print "\033[1mError\033[0m- check internet connection and try again"
+		return 0
+	try:
+		saved = poc.get_saved()
+	except:
+		print "\033[1mError\033[0m- check internet connection and try again"
+		return 0
 	read_titles = [archived[key]["resolved_title"] for key in list(archived.keys())]
 	saved_titles = [saved[key]["resolved_title"] for key in list(saved.keys())]
 	startTotal = len(list(saved.keys()))
@@ -58,6 +66,7 @@ def UpdateArticles(poc):
 		urls[line_list[1].rstrip()] = line_list[0]
 
 	done = False
+	totalCount = 0
 	for name, url in urls.iteritems():
 		while True:
 			n = raw_input(("At most how many articles would you like to "
@@ -85,13 +94,18 @@ def UpdateArticles(poc):
 			art = articles["items"][i]
 			if (art["title"] not in read_titles and 
 				art["title"] not in saved_titles):
-				poc.add(art["title"], art["link"])
-				count += 1
+				try:
+					poc.add(art["title"], art["link"])
+					count += 1
+				except:
+					print ("\033[1mError\033[0m- check internet"
+						" connection and try again")
+					return 0
 		print "Added " + str(count) + " from " + url
+		totalCount += count
 		print ""
-	endTotal = len(list(poc.get_saved().keys()))
 
-	print "Added " + str(endTotal - startTotal) + " new articles"
+	print "Added " + str(totalCount) + " new articles"
 	return 0
 
 def ViewFavorites():

@@ -92,11 +92,21 @@ def RandomArticle(poc, agg):
 					break
 				else:
 					"Category not recognized- please select a valid category"
-			sources = agg.get_sources(category)
-			break
+			try:
+				sources = agg.get_sources(category)
+				break
+			except:
+				print ("\033[1mError\033[0m- check internet "
+					"connection and try again")
+				return 0
 		elif specify == "n":
-			sources = agg.get_sources()
-			break
+			try: 
+				sources = agg.get_sources()
+				break
+			except:
+				print ("\033[1mError\033[0m- check internet "
+					"connection and try again")
+				return 0
 		elif specify == "c":
 			return 0
 		else:
@@ -113,14 +123,19 @@ def RandomArticle(poc, agg):
 			source = (source + 1) % len(sources)
 		used_sources.append(source)
 		print "Pulling down articles..."
-		articles = agg.get_arts(sources[source])
-		if articles["status"] == "error":
-			articles = agg.get_arts(sources[source], "latest")
-		if articles["status"] == "error":
-			articles = agg.get_arts(sources[source], "popular")
-		if articles["status"] == "error":
-			print "Something went wrong"
-			continue
+		try:
+			articles = agg.get_arts(sources[source])
+			if articles["status"] == "error":
+				articles = agg.get_arts(sources[source], "latest")
+			if articles["status"] == "error":
+				articles = agg.get_arts(sources[source], "popular")
+			if articles["status"] == "error":
+				print "Something went wrong-skipping to next source..."
+				continue
+		except:
+			print ("\033[1mError\033[0m- check internet "
+				"connection and try again")
+			return 0
 		article_list = articles["articles"]
 		source_done = False
 		used_arts = []
@@ -182,10 +197,20 @@ def EnableAgg():
 					from NewsAPI import Aggregator
 					test_agg = Aggregator(api_key)
 					print "Connecting to server..."
-					sources = test_agg.get_sources()
+					try:
+						sources = test_agg.get_sources()
+					except:
+						print ("\033[1mError\033[0m- check internet "
+							"connection and try again")
+						return 0
 					print "Testing api key..."
 					source = randint(0,len(sources) - 1)
-					res = test_agg.get_arts(sources[source])
+					try:
+						res = test_agg.get_arts(sources[source])
+					except:
+						print ("\033[1mError\033[0m- check internet "
+							"connection and try again")
+						return 0
 					if res['status'] == 'ok' or res['code'] != 'apiKeyInvalid':
 						print "Saving key..."
 						sec_file = open('data/secret.py', 'r')

@@ -17,7 +17,12 @@ def PocketInitialize():
 	}
 
 	# Actual post request to pocket's API
-	authorize_res = requests.post(authorize_url, headers=headers, json=authorize_data)
+	try:
+	authorize_res = requests.post(authorize_url, headers=headers, 
+		json=authorize_data)
+	except:
+		print "\033[1mError\033[0m- check internet connection and try again"
+		return 0
 	authorize_res = json.loads(str(authorize_res.text))
 	code = authorize_res["code"]
 
@@ -40,7 +45,11 @@ def PocketInitialize():
 	}
 
 	# Take note of the access token, and write it to file with consumer key
-	token_res = requests.post(token_url, headers=headers, json=token_data)
+	try:
+		token_res = requests.post(token_url, headers=headers, json=token_data)
+	except:
+		print "\033[1mError\033[0m- check internet connection and try again"
+		return 0
 	token_res = json.loads(str(token_res.text))
 	access_token = token_res["access_token"]
 
