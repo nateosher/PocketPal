@@ -7,8 +7,9 @@ from random import randint
 import json
 import requests
 from datetime import datetime
-from Pocket import Pocket
+from sets import Set
 
+from Pocket import Pocket
 from NewsAPI import Aggregator
 
 class PocketPal:
@@ -152,10 +153,19 @@ class PocketPal:
 		except:
 			print "\033[1mError\033[0m- check internet connection and try again"
 			return 0
-		read_titles = [archived[key]["resolved_title"] 
-						for key in list(archived.keys())]
-		saved_titles = [saved[key]["resolved_title"] 
-						for key in list(saved.keys())]
+		# Title lists
+		archivedResolvedTitles = Set([archived[key]["resolved_title"] 
+									for key in list(archived.keys())])
+		savedResolvedTitles = Set([saved[key]["resolved_title"] 
+								for key in list(saved.keys())])
+		archivedGivenTitles = Set([archived[key]["given_title"] 
+								for key in list(archived.keys())])
+		savedGivenTitles = Set([saved[key]["given_title"]
+								for key in list(saved.keys())])
+
+		allTitles = (archivedResolvedTitles | savedResolvedTitles |
+					archivedGivenTitles | savedGivenTitles)
+
 		startTotal = len(list(saved.keys()))
 		done = False
 		count = 0
@@ -185,8 +195,8 @@ class PocketPal:
 			count = 0
 			for i in range(0,n):
 				art = articles["items"][i]
-				if (art["title"] not in read_titles and 
-					art["title"] not in saved_titles):
+				# FIX THIS
+				if art["title"] not in allTitles:
 					try:
 						self._pocket.add(art["title"], art["link"])
 						count += 1
