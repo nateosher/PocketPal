@@ -436,7 +436,8 @@ class PocketPal:
 							print ("\033[1mError\033[0m- check internet "
 								"connection and try again")
 							return 0
-						if res['status'] == 'ok' or res['code'] != 'apiKeyInvalid':
+						if (res['status'] == 'ok' 
+							or res['code'] != 'apiKeyInvalid'):
 							print "Saving key..."
 							self._aggregator = test_agg
 							return 0
@@ -581,7 +582,8 @@ class PocketPal:
 				cutoffDate = datetime.strptime(cutoffDate, "%m/%d/%Y")
 				break
 			except ValueError:
-				print "Format error- be sure to pad month and day with 0's if necessary"
+				print ("Format error- be sure to pad month and"
+					" day with 0's if necessary")
 				print "Enter empty string to cancel action"
 		print "Retrieving saved articles..."
 		try:
@@ -650,28 +652,4 @@ def main():
 
 if __name__ == '__main__':
 	main()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
