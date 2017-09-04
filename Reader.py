@@ -64,7 +64,7 @@ def UpdateArticles(poc):
 	for line in f:
 		line_list = line.split(">>>")
 		urls[line_list[1].rstrip()] = line_list[0]
-
+	f.close()
 	done = False
 	totalCount = 0
 	for name, url in urls.iteritems():
@@ -120,11 +120,23 @@ def ViewFavorites():
 
 
 if __name__ == '__main__':
-	from Pocket import Pocket
-	import secret
-	poc = Pocket(secret.consumer_key, secret.access_token)
-	UpdateArticles(poc)
-
+	# from Pocket import Pocket
+	# import secret
+	# poc = Pocket(secret.consumer_key, secret.access_token)
+	# UpdateArticles(poc)
+	f = open("data/feeds.txt", "r")
+	urls = []
+	for line in f:
+		line_list = line.split(">>>")
+		urls.append(line_list[0])
+	#for url in urls:
+	articles = feedparser.parse(urls[5])
+	print articles["items"][0].keys()
+		# print "==================="
+		# for art in articles["items"]:
+		# 	print art["published"]
+		# print "========"
+	f.close()
 
 
 

@@ -1,4 +1,5 @@
 *.pyc
 *.txt
+*.pkl
 secret.py
 data/

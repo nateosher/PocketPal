@@ -64,14 +64,18 @@ def main():
 
 	# # add_new_article() test
 	# title = "Best in Classified"
-	# url = "http://slatestarcodex.com/2017/07/20/classified-thread-2-best-in-classified/"
+	# url = ("http://slatestarcodex.com/2017/07/20/
+	# classified-thread-2-best-in-classified/")
 	# resp = poc.add(title, url)
 	# for key in resp.keys():
 	# 	print key,":", resp[key]
 
-	# # get_archived() test
-	# archs = poc.get_archived()
-	# print len(list(archs.keys()))
+	# get_archived() test
+	archs = poc.get_archived()
+	for key in archs.keys():
+		print archs[key]["given_title"]
+		print archs[key]["resolved_title"]
+		print "=========================="
 
 	# # archive() test
 	# poc.archive(1827984249)
