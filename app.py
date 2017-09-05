@@ -69,10 +69,10 @@ def main():
 			pocketpal.ReadingStats()
 		elif next == "r" or next == "roll":
 			os.system('clear')
-			if secret.news_api_key == None:
+			if not pocketpal.AggEnabled():
 				pocketpal.EnableAgg()
 			else:
-				pocketpal.RandomArticle(poc, agg)
+				pocketpal.RandomArticle()
 		else:
 			print "Unknown or unsupported command"
 	print "Saving..."

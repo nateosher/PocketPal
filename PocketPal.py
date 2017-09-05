@@ -438,6 +438,7 @@ class PocketPal:
 							return 0
 						if (res['status'] == 'ok' 
 							or res['code'] != 'apiKeyInvalid'):
+							print "Success!"
 							print "Saving key..."
 							self._aggregator = test_agg
 							return 0
