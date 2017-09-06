@@ -48,7 +48,8 @@ def main():
 "r or roll      -> Pulls a single random articles from many possible "
 "sources (IN PROGRESS) \n"
 "g or guess     -> Scan headlines from news api and find ones that may "
-"potentially be of interest (IN PROGRESS))\n")
+"potentially be of interest (IN PROGRESS))\n"
+"ef             -> Edit favorite feeds")
 		elif next == "s" or next == "summary":
 			os.system('clear')
 			pocketpal.RecentReading()
@@ -73,6 +74,9 @@ def main():
 				pocketpal.EnableAgg()
 			else:
 				pocketpal.RandomArticle()
+		elif next == "ef":
+			os.system('clear')
+			pocketpal.Edit_Favorites()
 		else:
 			print "Unknown or unsupported command"
 	print "Saving..."

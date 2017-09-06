@@ -1,6 +1,5 @@
 # PocketPal.py
 # Given a Pocket object, allows for monitoring and updating
-import datetime
 import feedparser
 from os import system
 from random import randint
@@ -233,6 +232,32 @@ class PocketPal:
 		for feed in feeds:
 			print feed + " : " + self._urls[feed]
 		return 0
+
+	def Edit_Favorites(self):
+		sources = list(self._urls.keys())
+		removed_count = 0
+		for i in range(0, len(sources)):
+			iteration_done = False
+			while not iteration_done:
+				input_string = ("(%s of %s) would you like to remove the"
+					" source " + sources[i] + " from your "
+					"favorite feeds? (y/n/q)\n>> ") % (i+1, len(sources))
+				remove =  raw_input(input_string)
+				if remove == "q":
+					return 0
+				elif remove == "y":
+					self._urls = {key : value for key, value in 
+					self._urls.iteritems() if key != sources[i]}
+					removed_count += 1
+					iteration_done = True
+				elif remove == "n":
+					iteration_done = True
+				else:
+					print "Command not recognized"
+		print "Removed " + str(removed_count) + " feed(s)"
+		return 0
+
+
 
 	##########################
 	#### NEWS API METHODS ####
