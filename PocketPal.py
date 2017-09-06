@@ -170,10 +170,16 @@ class PocketPal:
 		done = False
 		count = 0
 		totalCount = 0
+		toAdd = []
+		sourceCount = 0
+		sourcesLength = len(self._urls.keys())
 		for name, url in self._urls.iteritems():
+			sourceCount += 1
 			while True:
-				n = raw_input(("At most how many articles would you like to "
-					"pull from " + name + "? (a for all, f to finish)\n>> "))
+				input_string = ("(%s of %s) At most how many "
+				"articles would you like to pull from " + name + "? "
+				"(a for all, f to finish)\n>> ") % (sourceCount, sourcesLength)
+				n = raw_input(input_string)
 				if n == "f":
 					done = True
 					break
@@ -195,20 +201,29 @@ class PocketPal:
 			count = 0
 			for i in range(0,n):
 				art = articles["items"][i]
-				# FIX THIS
 				if art["title"] not in allTitles:
 					try:
-						self._pocket.add(art["title"], art["link"])
+						toAdd.append({
+							"action" : "add",
+							"title" : art["title"],
+							"url" : art["link"]
+						})
 						count += 1
 					except:
 						print ("\033[1mError\033[0m- check internet"
 							" connection and try again")
 						return 0
-			print "Added " + str(count) + " from " + url
+
+			print "Adding " + str(count) + " from " + url
 			totalCount += count
 			print ""
 
-		print "Added " + str(totalCount) + " new articles"
+		try:
+			self._pocket.add_bulk(toAdd)
+			print "Added " + str(totalCount) + " new articles"
+		except:
+			"\033[1mError\033[0m- check internet connection and try again"
+
 		return 0
 
 	def ViewFavorites(self):
