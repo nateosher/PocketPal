@@ -42,6 +42,13 @@ class Pocket:
 		res = post(self._baseUrl + "send", json = del_info)
 		return res
 
+	# Add many different articles at once
+	def add_bulk(self, artList):
+		add_bulk_info = {"actions" : artList}
+		add_bulk_info.update(self._info)
+		res = post(self._baseUrl + "send", json=add_bulk_info)
+		return res
+
 	# Archive article from user's library
 	# @param artID: int. articles assigned ID in pocket
 	def archive(self, artID):
@@ -52,8 +59,11 @@ class Pocket:
 
 
 def main():
-	import secret
+	from data import secret
+
 	poc = Pocket(secret.consumer_key, secret.access_token)
+
+
 
 
 if __name__ == '__main__':

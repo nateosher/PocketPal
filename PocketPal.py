@@ -4,10 +4,11 @@ import datetime
 import feedparser
 from os import system
 from random import randint
-import json
+from json import loads
 import requests
 from datetime import datetime
 from sets import Set
+from re import sub
 
 from Pocket import Pocket
 from NewsAPI import Aggregator
@@ -67,7 +68,7 @@ class PocketPal:
 		except:
 			print "\033[1mError\033[0m- check internet connection and try again"
 			return 0
-		authorize_res = json.loads(str(authorize_res.text))
+		authorize_res = loads(str(authorize_res.text))
 		code = authorize_res["code"]
 
 		# Link for user to follow to confirm access
@@ -96,7 +97,7 @@ class PocketPal:
 		except:
 			print "\033[1mError\033[0m- check internet connection and try again"
 			return 0
-		token_res = json.loads(str(token_res.text))
+		token_res = loads(str(token_res.text))
 		access_token = token_res["access_token"]
 
 		self._pocket = Pocket(key, access_token)
@@ -201,11 +202,12 @@ class PocketPal:
 			count = 0
 			for i in range(0,n):
 				art = articles["items"][i]
-				if art["title"] not in allTitles:
+				art_title = sub('<.*?>', '', art["title"])
+				if art_title not in allTitles:
 					try:
 						toAdd.append({
 							"action" : "add",
-							"title" : art["title"],
+							"title" : art_title,
 							"url" : art["link"]
 						})
 						count += 1
