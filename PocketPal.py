@@ -23,7 +23,7 @@ class PocketPal:
 	###### INITIALIZING ######
 	##########################
 
-	def InitializePocket(self):
+	def initialize_pocket(self):
 		# Sets up POST request to get verification token
 		print ("Hi! It looks like it's your first time using this app, "
 			"so I'm going to walk you through setup.")
@@ -105,14 +105,14 @@ class PocketPal:
 
 		return 0
 
-	def PocketInitialized(self):
+	def pocket_initialized(self):
 		return self._pocket
 
 	##########################
 	###### FEED METHODS ######
 	##########################
 
-	def AddFavorites(self):
+	def add_favorites(self):
 		print "Enter urls to RSS feeds you want to follow (q or enter to quit)"
 		newurls = []
 		newurlnames = []
@@ -142,7 +142,7 @@ class PocketPal:
 			" feeds (" + str(len(newurls)) + " new)")
 		return 0
 
-	def UpdateArticles(self):
+	def update_articles(self):
 		try:
 			archived = self._pocket.get_archived()
 		except:
@@ -227,13 +227,13 @@ class PocketPal:
 
 		return 0
 
-	def ViewFavorites(self):
+	def view_favorites(self):
 		feeds = self._urls.keys()
 		for feed in feeds:
 			print feed + " : " + self._urls[feed]
 		return 0
 
-	def Edit_Favorites(self):
+	def edit_favorites(self):
 		sources = list(self._urls.keys())
 		removed_count = 0
 		for i in range(0, len(sources)):
@@ -263,14 +263,14 @@ class PocketPal:
 	#### NEWS API METHODS ####
 	##########################
 
-	def SetAgg(self, agg):
+	def set_aggregator(self, agg):
 		self._aggregator = agg
 		return 0
 
-	def AggEnabled(self):
+	def aggregator_enabled(self):
 		return self._aggregator
 
-	def RandomArticle(self):
+	def random_article(self):
 		valid_categories = ["business", "entertainment", "gaming", "general",
 		"music", "politics", "science-and-nature", "sport", "technology"]
 		source_hash = {
@@ -442,7 +442,7 @@ class PocketPal:
 				if len(used_arts) == len(article_list):
 					break
 
-	def EnableAgg(self):
+	def enable_aggregator(self):
 		print ("Would you like to enable PocketPal to connect"
 			" to https://newsapi.org/? This will allow PocketPal to suggest"
 			" random articles from a broad range of sources. However,"
@@ -495,7 +495,7 @@ class PocketPal:
 	##### STATSY METHODS #####
 	##########################
 
-	def ReadingStats(self):
+	def reading_stats(self):
 		sites = {}
 		words = []
 		try:
@@ -554,7 +554,7 @@ class PocketPal:
 	###### MISC METHODS ######
 	##########################
 
-	def CalculateChange(self, oldDate, newDate):
+	def calculate_change(self, oldDate, newDate):
 		sign = "-" if oldDate[6] > newDate[6] else "+"
 		savedDif = str(abs(oldDate[6] - newDate[6]))
 		readDif = str(abs(oldDate[7] - newDate[7]))
@@ -584,7 +584,7 @@ class PocketPal:
 					return (prefix + str(newDate[i] - oldDate[i]) + 
 							" " + date_hash[i] + "s")
 
-	def RecentReading(self):
+	def recent_reading(self):
 		# Get current date as list of ints
 		current_date = list(datetime.now().timetuple()[0:6])
 		# Make request to see how many articles user has
@@ -609,11 +609,11 @@ class PocketPal:
 		print "You have " + str(counter) + " saved articles"
 		print "You have read " + str(numRead) + " articles"
 		if self._lastChecked:
-			print self.CalculateChange(self._lastChecked, current_date)
+			print self.calculate_change(self._lastChecked, current_date)
 		self._lastChecked = current_date
 		return 0
 
-	def CleanUp(self):
+	def clean_up(self):
 		# convert cutoff date to actual date
 		while True:
 			cutoffDate = raw_input(("Please enter cutoff date for "

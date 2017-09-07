@@ -15,8 +15,8 @@ def main():
 	if not os.path.isfile("pocketpal.pkl"):
 		from PocketPal import PocketPal
 		pocketpal = PocketPal()
-		pocketpal.InitializePocket()
-		if not pocketpal.PocketInitialized():
+		pocketpal.initialize_pocket()
+		if not pocketpal.pocket_initialized():
 			print "Sorry- something went wrong :("
 			return 0
 		else:
@@ -46,37 +46,37 @@ def main():
 "st or stats    -> Generate simple statistical summary of reading habits\n"
 "j or journal   -> Give \"reading journal\" of past week (IN PROGRESS)\n"
 "r or roll      -> Pulls a single random articles from many possible "
-"sources (IN PROGRESS) \n"
+"sources \n"
 "g or guess     -> Scan headlines from news api and find ones that may "
 "potentially be of interest (IN PROGRESS))\n"
 "ef             -> Edit favorite feeds")
 		elif next == "s" or next == "summary":
 			os.system('clear')
-			pocketpal.RecentReading()
+			pocketpal.recent_reading()
 		elif next == "f" or next == "favorites":
 			os.system('clear')
-			pocketpal.AddFavorites()
+			pocketpal.add_favorites()
 		elif next == "sc" or next == "scrape":
 			os.system('clear')
-			pocketpal.UpdateArticles()
+			pocketpal.update_articles()
 		elif next == "vf" or next == "view":
 			os.system('clear')
-			pocketpal.ViewFavorites()
+			pocketpal.view_favorites()
 		elif next == "c" or next == "clean":
 			os.system('clear')
-			pocketpal.CleanUp()
+			pocketpal.clean_up()
 		elif next == "st" or next == "stats":
 			os.system('clear')
-			pocketpal.ReadingStats()
+			pocketpal.reading_stats()
 		elif next == "r" or next == "roll":
 			os.system('clear')
-			if not pocketpal.AggEnabled():
-				pocketpal.EnableAgg()
+			if not pocketpal.aggregator_enabled():
+				pocketpal.enable_aggregator()
 			else:
-				pocketpal.RandomArticle()
+				pocketpal.random_article()
 		elif next == "ef":
 			os.system('clear')
-			pocketpal.Edit_Favorites()
+			pocketpal.edit_favorites()
 		else:
 			print "Unknown or unsupported command"
 	print "Saving..."
