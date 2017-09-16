@@ -267,6 +267,10 @@ class PocketPal:
 		self._aggregator = agg
 		return 0
 
+	def set_aggregator_key(self, newKey):
+		self._aggregator.set_key(newKey)
+		return 0
+
 	def aggregator_enabled(self):
 		return self._aggregator
 
@@ -420,7 +424,10 @@ class PocketPal:
 				used_arts.append(cur_article)
 				print ""
 				print '\033[1m' + article_list[cur_article]["title"] + '\033[0m'
-				print "Excerpt: " + article_list[cur_article]["description"]
+				if article_list[cur_article]["description"]:
+					print "Excerpt: " + article_list[cur_article]["description"]
+				else:
+					print "No excerpt available"
 				while True:
 					add = raw_input(("Would you like to add to Pocket? "
 						"(y/n/s/c):\n>> "))

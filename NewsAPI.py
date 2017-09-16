@@ -9,10 +9,15 @@ class Aggregator:
 		self._key = key
 		self._baseurl = "https://newsapi.org/v1/"
 
-	# Getter method for key- you will probably never need this, and
-	# you definitely won't need a setter method
+	# Getter method for key- you can use this but it mildly defeats
+	# the purpose of the entire class
 	def get_key(self):
 		return self._key
+
+	# Setter method for key- you might need this
+	def set_key(self, newKey):
+		self._key = newKey
+		return 0
 
 	# Returns a list of all possible sources from api
 	# If no category is specified, defaults to all
